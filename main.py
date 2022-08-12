@@ -16,6 +16,7 @@ in_match = False
 
 @app.route('/', methods=['GET'])
 def home():
+    msg=""
     try:
         watcher.spectator.by_summoner(MY_REGION, summoner['id'])
     except ApiError as err:
@@ -27,4 +28,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
