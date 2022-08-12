@@ -14,7 +14,7 @@ CHAMPION_LIST = watcher.data_dragon.champions(champions_version)
 in_match = False
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     try:
         watcher.spectator.by_summoner(MY_REGION, summoner['id'])
