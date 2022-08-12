@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, url_for, redirect, flash, sen
 from riotwatcher import LolWatcher, ApiError
 
 app = Flask(__name__)
-api_key = 'RGAPI-a2dafc3e-f256-41bd-a9f9-aab49177d2c7'
+api_key = 'RGAPI-9fbb6c64-6ccf-4b89-a9e3-c450b23894a4'
 watcher = LolWatcher(api_key)
 MY_REGION = 'euw1'
 SUMMONER_NAME = "P1ncel"
@@ -16,14 +16,17 @@ in_match = False
 
 @app.route('/', methods=['GET'])
 def home():
-    msg=""
+    msg = ""
     try:
+
         watcher.spectator.by_summoner(MY_REGION, summoner['id'])
     except ApiError as err:
         if err.response.status_code == 404:
-            msg = " no está en partida"
+            msg = "Cañete no está en partida"
+        if err.response.status_code == 403:
+            msg = "Vuelve a intentarlo"
     else:
-        msg = " está en partida"
+        msg = "Cañete está en partida"
     return render_template("index.html", msg=msg)
 
 
